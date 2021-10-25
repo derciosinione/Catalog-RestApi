@@ -5,7 +5,7 @@ using Catalog.Api.Models;
 
 namespace Catalog.Api.Repositories
 {
-    public class InMemoryRepository
+    public class InMemoryRepository : IItemsRepository
     {
         private readonly List<Item> _items = new()
         {
