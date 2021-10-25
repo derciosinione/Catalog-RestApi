@@ -20,9 +20,9 @@ namespace Catalog.Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ItemDto> GetItems()
+        public async IEnumerable<ItemDto> GetItems()
         {
-            var items = _repository.GetItems().Select(item => item.AsDto());
+            var items = _repository.GetItems();
             
             return items;
         }

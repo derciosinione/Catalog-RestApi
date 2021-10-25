@@ -29,18 +29,18 @@ namespace Catalog.Api.Repositories
             return await _itemsCollection.Find(filter).SingleOrDefaultAsync();
         } 
 
-        public async void CreateItem(Item item)
+        public async Task CreateItem(Item item)
         {
             await _itemsCollection.InsertOneAsync(item);
         }
 
-        public async void UpdateItem(Item item)
+        public async Task UpdateItem(Item item)
         {
             var filter = _filterBuilder.Eq(existingItem => existingItem.Id, item.Id);
             await _itemsCollection.ReplaceOneAsync(filter, item);
         }
 
-        public async void DeleteItem(Guid id)
+        public async Task DeleteItem(Guid id)
         {
             var filter = _filterBuilder.Eq(existingItem => existingItem.Id, id);
             await _itemsCollection.DeleteOneAsync(filter);
