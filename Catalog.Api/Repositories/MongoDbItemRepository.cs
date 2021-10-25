@@ -11,7 +11,8 @@ namespace Catalog.Api.Repositories
         private readonly IMongoCollection<Item> _itemsCollection;
         private const string _databaseName = "CatalogDb";
         private const string _collectionName = "items";
-        
+        private readonly FilterDefinitionBuilder<Item> _filterBuilder = Builders<Item>.Filter;
+
 
         public MongoDbItemRepository(IMongoClient mongoClient)
         {
@@ -25,7 +26,8 @@ namespace Catalog.Api.Repositories
 
         public Item GetItem(Guid id)
         {
-            throw new NotImplementedException();
+            var filter = _filterBuilder.Eq(item => item.Id, id);
+            return _itemsCollection.Find(filter).SingleOrDefault();
         } 
 
         public void CreateItem(Item item)
