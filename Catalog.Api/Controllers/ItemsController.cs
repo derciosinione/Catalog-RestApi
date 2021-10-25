@@ -7,26 +7,34 @@ using Microsoft.AspNetCore.Mvc;
 namespace Catalog.Api.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")]
+    [Route("items")]
     public class ItemsController : ControllerBase
     {
-        private readonly InMemoryRepository _repository;
+        private readonly InMemoryRepository _repository = new InMemoryRepository();
 
-        public ItemsController(InMemoryRepository repository)
-        {
-            _repository = repository;
-        }
+        // public ItemsController(InMemoryRepository repository)
+        // {
+        //     _repository = repository;
+        // }
 
         [HttpGet]
         public IEnumerable<Item> GetItems()
         {
-            return _repository.GetItems();
+            var items = _repository.GetItems();
+            return items;
         }
         
         [HttpGet("{id}")]
-        public Item GetItem(Guid id)
+        public ActionResult<Item> GetItem(Guid id)
         {
-            return _repository.GetItem(id);
+            var item = _repository.GetItem(id);
+
+            if (item is null)
+            {
+                NotFound();
+            }
+            
+            return Ok(item);
         }
     }
 }

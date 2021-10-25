@@ -14,8 +14,16 @@ namespace Catalog.Api.Repositories
             new Item {Id = Guid.NewGuid(), Name = "HP Computer", Price = 100, CreatedDate = DateTimeOffset.UtcNow}
         };
 
-        public IEnumerable<Item> GetItems() => _items;
+        public IEnumerable<Item> GetItems()
+        { 
+            return _items;
+        } 
+            
 
-        public Item GetItem(Guid id) => _items.Where(i => i.Id == id).SingleOrDefault();
+        public Item GetItem(Guid id)
+        { 
+            return _items.Where(i => i.Id == id).SingleOrDefault();
+        }
+
     }
 }
