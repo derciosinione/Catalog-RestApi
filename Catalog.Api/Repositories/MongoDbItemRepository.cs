@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Catalog.Api.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Catalog.Api.Repositories
@@ -19,7 +20,7 @@ namespace Catalog.Api.Repositories
         }
         public IEnumerable<Item> GetItems()
         {
-            throw new NotImplementedException();
+            return _itemsCollection.Find(new BsonDocument()).ToList();
         }
 
         public Item GetItem(Guid id)
