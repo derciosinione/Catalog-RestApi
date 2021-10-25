@@ -43,7 +43,8 @@ namespace Catalog.Api.Repositories
 
         public void DeleteItem(Guid id)
         {
-            throw new NotImplementedException();
+            var filter = _filterBuilder.Eq(existingItem => existingItem.Id, id);
+            _itemsCollection.DeleteOne(filter);
         }
     }
 }
