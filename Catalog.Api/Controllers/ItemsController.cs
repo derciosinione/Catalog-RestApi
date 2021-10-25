@@ -30,9 +30,9 @@ namespace Catalog.Api.Controllers
         }
         
         [HttpGet("{id}")]
-        public ActionResult<ItemDto> GetItem(Guid id)
+        public async Task<ActionResult<ItemDto>> GetItem(Guid id)
         {
-            var item = _repository.GetItem(id);
+            var item = await _repository.GetItem(id);
 
             if (item is null)
             {
@@ -43,7 +43,7 @@ namespace Catalog.Api.Controllers
         }
         
         [HttpPost]
-        public ActionResult<ItemDto> CreateItem(CreateItemDto itemDto)
+        public async Task<ActionResult<ItemDto>> CreateItem(CreateItemDto itemDto)
         {
             Item item = new()
             {
@@ -53,24 +53,24 @@ namespace Catalog.Api.Controllers
                 CreatedDate = DateTimeOffset.UtcNow
             };
             
-            _repository.CreateItem(item);
+            await _repository.CreateItem(item);
             return CreatedAtAction(nameof(GetItem), new {id = item.Id}, item.AsDto());
         }
         
         [HttpPut("{id}")]
-        public ActionResult UpdateItem(Guid id, UpdateItemDto itemDto)
+        public async Task<ActionResult> UpdateItem(Guid id, UpdateItemDto itemDto)
         {
-            var existingItem = _repository.GetItem(id);
+            var existingItem = await _repository.GetItem(id);
 
             if (existingItem is null) return NotFound();
 
-            Item UpdatedItem = existingItem with
+            Item updatedItem = existingItem with
             {
                 Name = itemDto.Name,
                 Price = itemDto.Price
             };
             
-            _repository.UpdateItem(UpdatedItem);
+            await _repository.UpdateItem(updatedItem);
             
             return NoContent();
         }
