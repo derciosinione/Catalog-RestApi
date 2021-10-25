@@ -25,5 +25,9 @@ namespace Catalog.Api.Repositories
             return _items.Where(i => i.Id == id).SingleOrDefault();
         }
 
+        public void CreateItem(Item item)
+        {
+            _items.Add(item);
+        }
     }
 }
