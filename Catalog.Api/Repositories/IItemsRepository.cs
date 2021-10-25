@@ -10,5 +10,6 @@ namespace Catalog.Api.Repositories
         Item GetItem(Guid id);
         void CreateItem(Item item);
         void UpdateItem(Item item);
+        void DeleteItem(Guid id);
     }
 }

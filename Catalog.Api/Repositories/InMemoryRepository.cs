@@ -9,9 +9,9 @@ namespace Catalog.Api.Repositories
     {
         private readonly List<Item> _items = new()
         {
-            new Item {Id = Guid.NewGuid(), Name = "HP Computer", Price = 100, CreatedDate = DateTimeOffset.UtcNow},
-            new Item {Id = Guid.NewGuid(), Name = "HP Computer", Price = 100, CreatedDate = DateTimeOffset.UtcNow},
-            new Item {Id = Guid.NewGuid(), Name = "HP Computer", Price = 100, CreatedDate = DateTimeOffset.UtcNow}
+            new Item {Id = Guid.NewGuid(), Name = "HP Computer", Price = 900, CreatedDate = DateTimeOffset.UtcNow},
+            new Item {Id = Guid.NewGuid(), Name = "iphone 6s", Price = 1000, CreatedDate = DateTimeOffset.UtcNow},
+            new Item {Id = Guid.NewGuid(), Name = "Mouse", Price = 500, CreatedDate = DateTimeOffset.UtcNow}
         };
 
         public IEnumerable<Item> GetItems()
@@ -34,6 +34,12 @@ namespace Catalog.Api.Repositories
         {
             var itemIndex = _items.FindIndex(i => i.Id == item.Id);
             _items[itemIndex] = item;
+        }
+
+        public void DeleteItem(Guid id)
+        {
+            var itemIndex = _items.FindIndex(i => i.Id == id);
+            _items.RemoveAt(itemIndex);
         }
     }
 }
