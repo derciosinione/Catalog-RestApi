@@ -9,15 +9,13 @@ namespace Catalog.Api.Repositories
     public class MongoDbItemRepository : IItemsRepository
     {
         private readonly IMongoCollection<Item> _itemsCollection;
-        private const string _databaseName = "CatalogDb";
-        private const string _collectionName = "items";
         private readonly FilterDefinitionBuilder<Item> _filterBuilder = Builders<Item>.Filter;
 
 
         public MongoDbItemRepository(IMongoClient mongoClient)
         {
-            IMongoDatabase database = mongoClient.GetDatabase(_databaseName);
-            _itemsCollection = database.GetCollection<Item>(_collectionName);
+            IMongoDatabase database = mongoClient.GetDatabase("CatalogDb");
+            _itemsCollection = database.GetCollection<Item>("items");
         }
         public IEnumerable<Item> GetItems()
         {
