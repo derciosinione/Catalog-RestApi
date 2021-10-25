@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Catalog.Api.Dtos;
 using Catalog.Api.Models;
 using Catalog.Api.Repositories;
@@ -20,9 +21,10 @@ namespace Catalog.Api.Controllers
         }
 
         [HttpGet]
-        public async IEnumerable<ItemDto> GetItems()
+        public async Task<IEnumerable<ItemDto>> GetItems()
         {
-            var items = _repository.GetItems();
+            var items = (await _repository.GetItems())
+                .Select(item => item.AsDto());
             
             return items;
         }
