@@ -6,6 +6,7 @@ using Catalog.Api.Dtos;
 using Catalog.Api.Models;
 using Catalog.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Catalog.Api.Controllers
 {
@@ -30,7 +31,7 @@ namespace Catalog.Api.Controllers
         }
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<ItemDto>> GetItem(Guid id)
+        public async Task<ActionResult<Item>> GetItem(Guid id)
         {
             var item = await _repository.GetItem(id);
 
@@ -39,7 +40,7 @@ namespace Catalog.Api.Controllers
                 NotFound();
             }
             
-            return Ok(item.AsDto());
+            return Ok(item);
         }
         
         [HttpPost]
